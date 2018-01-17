@@ -22,6 +22,7 @@ namespace PaymentService {
 		, logger(loggerGroup, "PaymentServiceJsonRpcServer")
 	{
 		handlers.emplace("reset", jsonHandler<Reset::Request, Reset::Response>(std::bind(&PaymentServiceJsonRpcServer::handleReset, this, std::placeholders::_1, std::placeholders::_2)));
+		handlers.emplace("save", jsonHandler<SaveWallet::Request, SaveWallet::Response>(std::bind(&PaymentServiceJsonRpcServer::handleSave, this, std::placeholders::_1, std::placeholders::_2)));
 		handlers.emplace("createAddress", jsonHandler<CreateAddress::Request, CreateAddress::Response>(std::bind(&PaymentServiceJsonRpcServer::handleCreateAddress, this, std::placeholders::_1, std::placeholders::_2)));
 		handlers.emplace("deleteAddress", jsonHandler<DeleteAddress::Request, DeleteAddress::Response>(std::bind(&PaymentServiceJsonRpcServer::handleDeleteAddress, this, std::placeholders::_1, std::placeholders::_2)));
 		handlers.emplace("getSpendKeys", jsonHandler<GetSpendKeys::Request, GetSpendKeys::Response>(std::bind(&PaymentServiceJsonRpcServer::handleGetSpendKeys, this, std::placeholders::_1, std::placeholders::_2)));
@@ -88,6 +89,11 @@ namespace PaymentService {
 		else {
 			return service.replaceWithNewWallet(request.viewSecretKey);
 		}
+	}
+
+	std::error_code PaymentServiceJsonRpcServer::handleSave(const SaveWallet::Request& request, SaveWallet::Response& response) {
+		service.saveWallet();
+		return (std::error_code());
 	}
 
 	std::error_code PaymentServiceJsonRpcServer::handleCreateAddress(const CreateAddress::Request& request, CreateAddress::Response& response) {

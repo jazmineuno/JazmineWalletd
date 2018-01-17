@@ -16,6 +16,12 @@ namespace PaymentService {
 	void Reset::Response::serialize(CryptoNote::ISerializer& serializer) {
 	}
 
+	void SaveWallet::Request::serialize(CryptoNote::ISerializer& serializer) {
+	}
+
+	void SaveWallet::Response::serialize(CryptoNote::ISerializer& serializer) {
+	}
+
 	void GetViewKey::Request::serialize(CryptoNote::ISerializer& serializer) {
 	}
 

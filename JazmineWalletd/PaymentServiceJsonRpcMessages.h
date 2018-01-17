@@ -32,6 +32,18 @@ namespace PaymentService {
 		};
 	};
 
+	struct SaveWallet {
+		struct Request {
+
+			void serialize(CryptoNote::ISerializer& serializer);
+		};
+
+		struct Response {
+			void serialize(CryptoNote::ISerializer& serializer);
+		};
+
+	};
+
 	struct GetViewKey {
 		struct Request {
 			void serialize(CryptoNote::ISerializer& serializer);
